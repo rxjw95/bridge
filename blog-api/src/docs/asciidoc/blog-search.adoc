@@ -1,0 +1,36 @@
+= 블로그 검색 서비스 API
+notification-api-docs
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+:sectlinks:
+
+ifndef::snippets[]
+:snippets: ./build/generated-snippets
+endif::[]
+
+=== 블로그 검색
+
+==== [Request URL]
+
+[source,http,options="nowrap"]
+....
+GET /blog/search HTTP/1.1
+Accept: application/json
+Authorization: KakaoAK ${REST_API_KEY}
+Host: localhost
+....
+
+==== [Request Sample]
+
+include::{snippets}/blog-search/http-request.adoc[]
+
+==== [Request Field]
+
+include::{snippets}/blog-search/query-parameters.adoc[]
+
+==== [Response Fields]
+
+include::{snippets}/blog-search/response-fields.adoc[]
