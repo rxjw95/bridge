@@ -9,7 +9,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.assign.search.application.port.usecase.BlogSearchUseCase;
+import com.assign.search.application.in.usecase.BlogSearchUseCase;
 import com.assign.search.dto.request.KeywordSearchRequest;
 import com.assign.search.dto.response.KeywordSearchResponse;
 import com.assign.search.vo.BlogDocument;
