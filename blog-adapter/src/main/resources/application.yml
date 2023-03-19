@@ -1,0 +1,3 @@
+kakao:
+  api: https://dapi.kakao.com/v2/search/blog
+  rest-key: KakaoAK 813f396455d5205f1921a44489b1a294
