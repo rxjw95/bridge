@@ -1,0 +1,4 @@
+rootProject.name = 'bridge'
+include 'blog-api'
+include 'blog-core'
+
