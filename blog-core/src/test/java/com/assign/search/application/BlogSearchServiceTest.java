@@ -1,12 +1,14 @@
 package com.assign.search.application;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import com.assign.search.application.out.api.SearchClient;
+import com.assign.search.application.out.event.SearchEventPublisher;
 import com.assign.search.dto.BlogDocument;
 import com.assign.search.dto.PageInfo;
 import com.assign.search.dto.request.KeywordSearchRequest;
 import com.assign.search.dto.response.KeywordSearchResponse;
 import java.util.List;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class BlogSearchServiceTest {
@@ -14,7 +16,9 @@ class BlogSearchServiceTest {
     private final SearchKeywordService subject;
 
     BlogSearchServiceTest() {
-        this.subject = new SearchKeywordService(new SearchClientStub());
+        this.subject = new SearchKeywordService(
+            new SearchClientStub(),
+            new SearchKeywordPublisherStub());
     }
 
     @Test
@@ -22,8 +26,7 @@ class BlogSearchServiceTest {
         KeywordSearchRequest request = createKeywordSearchRequest();
 
         KeywordSearchResponse response = subject.search(request);
-
-        Assertions.assertThat(response).isNotNull();
+        assertThat(response).isNotNull();
     }
 
     private KeywordSearchRequest createKeywordSearchRequest() {
@@ -45,6 +48,14 @@ class BlogSearchServiceTest {
             PageInfo pageInfo = new PageInfo(100, 50, false);
 
             return new KeywordSearchResponse(documents, pageInfo);
+        }
+    }
+
+    private static class SearchKeywordPublisherStub implements SearchEventPublisher {
+
+        @Override
+        public void publish(String keyword) {
+            // anything
         }
     }
 }
