@@ -11,10 +11,10 @@ import org.junit.jupiter.api.Test;
 
 class BlogSearchServiceTest {
 
-    private final BlogSearchService subject;
+    private final SearchKeywordService subject;
 
     BlogSearchServiceTest() {
-        this.subject = new BlogSearchService(new SearchClientStub());
+        this.subject = new SearchKeywordService(new SearchClientStub());
     }
 
     @Test

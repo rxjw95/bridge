@@ -1,6 +1,8 @@
 package com.assign.search.persentation;
 
-import com.assign.search.application.in.usecase.BlogSearchUseCase;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
+import com.assign.search.application.in.usecase.SearchKeywordUseCase;
 import com.assign.search.dto.request.KeywordSearchRequest;
 import com.assign.search.dto.response.KeywordSearchResponse;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,14 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class BlogSearchController {
 
-  private final BlogSearchUseCase blogSearchUseCase;
+    private final SearchKeywordUseCase searchKeywordUseCase;
 
-  public BlogSearchController(BlogSearchUseCase blogSearchUseCase) {
-    this.blogSearchUseCase = blogSearchUseCase;
-  }
+    public BlogSearchController(SearchKeywordUseCase searchKeywordUseCase) {
+        this.searchKeywordUseCase = searchKeywordUseCase;
+    }
 
-  @GetMapping("/search")
-  public KeywordSearchResponse search(@ModelAttribute KeywordSearchRequest request) {
-    return blogSearchUseCase.search(request);
-  }
+    @GetMapping(value = "/search", produces = APPLICATION_JSON_VALUE, headers = "charset=utf-8")
+    public KeywordSearchResponse search(@ModelAttribute KeywordSearchRequest request) {
+        return searchKeywordUseCase.search(request);
+    }
+
 }

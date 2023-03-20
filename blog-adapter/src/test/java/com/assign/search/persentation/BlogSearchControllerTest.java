@@ -9,7 +9,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.assign.search.application.in.usecase.BlogSearchUseCase;
+import com.assign.search.application.in.usecase.SearchKeywordUseCase;
 import com.assign.search.dto.BlogDocument;
 import com.assign.search.dto.PageInfo;
 import com.assign.search.dto.request.KeywordSearchRequest;
@@ -39,7 +39,7 @@ class BlogSearchControllerTest {
         "build/generated-snippets");
 
     @MockBean
-    private BlogSearchUseCase blogSearchUseCase;
+    private SearchKeywordUseCase searchKeywordUseCase;
 
     @BeforeEach
     void setUp(WebApplicationContext webApplicationContext,
@@ -60,7 +60,7 @@ class BlogSearchControllerTest {
         PageInfo pageInfo = createDummyPageInfo();
         KeywordSearchResponse response = new KeywordSearchResponse(blogDocuments, pageInfo);
 
-        given(blogSearchUseCase.search(request)).willReturn(response);
+        given(searchKeywordUseCase.search(request)).willReturn(response);
 
         mockMvc.perform(get("/blog/search")
                 .accept(APPLICATION_JSON)

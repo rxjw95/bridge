@@ -1,17 +1,17 @@
 package com.assign.search.application;
 
-import com.assign.search.application.in.usecase.BlogSearchUseCase;
+import com.assign.search.application.in.usecase.SearchKeywordUseCase;
 import com.assign.search.application.out.api.SearchClient;
 import com.assign.search.dto.request.KeywordSearchRequest;
 import com.assign.search.dto.response.KeywordSearchResponse;
 import org.springframework.stereotype.Service;
 
 @Service
-public class BlogSearchService implements BlogSearchUseCase {
+public class SearchKeywordService implements SearchKeywordUseCase {
 
     private final SearchClient searchClient;
 
-    public BlogSearchService(SearchClient searchClient) {
+    public SearchKeywordService(SearchClient searchClient) {
         this.searchClient = searchClient;
     }
 
