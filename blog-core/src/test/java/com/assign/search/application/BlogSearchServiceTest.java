@@ -1,11 +1,10 @@
 package com.assign.search.application;
 
 import com.assign.search.application.out.api.SearchClient;
+import com.assign.search.dto.BlogDocument;
+import com.assign.search.dto.PageInfo;
 import com.assign.search.dto.request.KeywordSearchRequest;
-import com.assign.search.dto.response.KakaoSearchApiResponse;
 import com.assign.search.dto.response.KeywordSearchResponse;
-import com.assign.search.vo.BlogDocument;
-import com.assign.search.vo.PageInfo;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.assertj.core.api.Assertions;
@@ -35,7 +34,7 @@ class BlogSearchServiceTest {
     private static class SearchClientStub implements SearchClient {
 
         @Override
-        public KakaoSearchApiResponse fetch(KeywordSearchRequest request) {
+        public KeywordSearchResponse fetch(KeywordSearchRequest request) {
             BlogDocument blogDocument = BlogDocument.of(
                 "블로그 명",
                 "블로그 컨텐츠",
@@ -45,7 +44,8 @@ class BlogSearchServiceTest {
                 "https://developers.kakao.com/docs/latest/ko/daum-search/dev-guide#search-blog");
             List<BlogDocument> documents = List.of(blogDocument);
             PageInfo pageInfo = new PageInfo(100, 50, false);
-            return new KakaoSearchApiResponse(documents, pageInfo);
+
+            return new KeywordSearchResponse(documents, pageInfo);
         }
     }
 }
