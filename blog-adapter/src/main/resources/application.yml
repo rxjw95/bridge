@@ -1,3 +1,23 @@
 kakao:
   api: https://dapi.kakao.com/v2/search/blog
   rest-key: KakaoAK 813f396455d5205f1921a44489b1a294
+
+spring:
+  jpa:
+    database: h2
+    generate-ddl: true
+    show-sql: true
+    open-in-view: false
+    hibernate:
+      ddl-auto: create
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    username: tester
+    password:
+
