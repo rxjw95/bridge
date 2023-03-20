@@ -23,7 +23,7 @@ asciidoctor {
 
 bootJar {
     dependsOn asciidoctor
-    from ("${asciidoctor.outputDir}") {
+    from("${asciidoctor.outputDir}") {
         into 'static/docs'
     }
 }
@@ -33,6 +33,7 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.apache.httpcomponents.client5:httpclient5:5.2.1'
 
     runtimeOnly 'com.h2database:h2'
 
