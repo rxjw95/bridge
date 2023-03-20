@@ -2,7 +2,6 @@ package com.assign.search.infrastructure.external;
 
 import static java.lang.Boolean.parseBoolean;
 import static java.lang.Integer.parseInt;
-import static java.time.LocalDateTime.parse;
 
 import com.assign.search.dto.BlogDocument;
 import com.assign.search.dto.PageInfo;
@@ -32,7 +31,7 @@ public class SearchResponseConverter {
         return table -> BlogDocument.of(
             table.get("blogname"),
             table.get("contents"),
-            parse(table.get("datetime")),
+            table.get("datetime"),
             table.get("thumbnail"),
             table.get("title"),
             table.get("url"));

@@ -5,7 +5,6 @@ import com.assign.search.dto.BlogDocument;
 import com.assign.search.dto.PageInfo;
 import com.assign.search.dto.request.KeywordSearchRequest;
 import com.assign.search.dto.response.KeywordSearchResponse;
-import java.time.LocalDateTime;
 import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -38,7 +37,7 @@ class BlogSearchServiceTest {
             BlogDocument blogDocument = BlogDocument.of(
                 "블로그 명",
                 "블로그 컨텐츠",
-                LocalDateTime.of(2023, 3, 18, 10, 0),
+                "2023-03-20T18:50:07.000+09:00",
                 "https://search3.kakaocdn.net",
                 "게시글 제목",
                 "https://developers.kakao.com/docs/latest/ko/daum-search/dev-guide#search-blog");
