@@ -21,11 +21,19 @@ asciidoctor {
     dependsOn test
 }
 
-bootJar {
+asciidoctor.doFirst {
+    delete file('src/main/resources/static/docs')
+}
+
+tasks.register('createDocument', Copy) {
     dependsOn asciidoctor
-    from("${asciidoctor.outputDir}") {
-        into 'static/docs'
-    }
+
+    from file("build/docs/asciidoc")
+    into file("src/main/resources/static")
+}
+
+build {
+    dependsOn createDocument
 }
 
 dependencies {
