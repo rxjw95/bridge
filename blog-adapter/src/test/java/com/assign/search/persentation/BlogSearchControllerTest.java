@@ -1,6 +1,7 @@
 package com.assign.search.persentation;
 
 import static com.assign.search.docs.BlogSearchRestDocument.searchKeywordRestDocument;
+import static com.assign.search.docs.HotKeywordRestDocument.hotKeywordRestDocument;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -9,10 +10,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.assign.search.application.in.usecase.FindHotKeywordUseCase;
 import com.assign.search.application.in.usecase.SearchKeywordUseCase;
 import com.assign.search.dto.BlogDocument;
 import com.assign.search.dto.PageInfo;
 import com.assign.search.dto.request.KeywordSearchRequest;
+import com.assign.search.dto.response.HotKeywordResponse;
 import com.assign.search.dto.response.KeywordSearchResponse;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -41,6 +44,9 @@ class BlogSearchControllerTest {
     @MockBean
     private SearchKeywordUseCase searchKeywordUseCase;
 
+    @MockBean
+    private FindHotKeywordUseCase findHotKeywordUseCase;
+
     @BeforeEach
     void setUp(WebApplicationContext webApplicationContext,
         RestDocumentationContextProvider restDocumentation) {
@@ -55,10 +61,7 @@ class BlogSearchControllerTest {
         final String restKeyDummy = "KakaoAK 1029384756abc";
 
         KeywordSearchRequest request = createKeywordSearchRequest();
-
-        List<BlogDocument> blogDocuments = createDummyBlogDocuments();
-        PageInfo pageInfo = createDummyPageInfo();
-        KeywordSearchResponse response = new KeywordSearchResponse(blogDocuments, pageInfo);
+        KeywordSearchResponse response = createKeywordSearchResponse();
 
         given(searchKeywordUseCase.search(request)).willReturn(response);
 
@@ -70,6 +73,28 @@ class BlogSearchControllerTest {
             .andExpect(status().isOk())
             .andDo(print())
             .andDo(searchKeywordRestDocument());
+    }
+
+    @Test
+    void findHotKeyword() throws Exception {
+        List<HotKeywordResponse> response = createHotKeywordResponse();
+        given(findHotKeywordUseCase.find()).willReturn(response);
+
+        mockMvc.perform(get("/blog/keyword/hot")
+                .accept(APPLICATION_JSON))
+            .andExpect(status().isOk())
+            .andDo(print())
+            .andDo(hotKeywordRestDocument());
+    }
+
+    private List<HotKeywordResponse> createHotKeywordResponse() {
+        return List.of(new HotKeywordResponse("대한민국", 10), new HotKeywordResponse("만세", 5));
+    }
+
+    private KeywordSearchResponse createKeywordSearchResponse() {
+        List<BlogDocument> blogDocuments = createDummyBlogDocuments();
+        PageInfo pageInfo = createDummyPageInfo();
+        return new KeywordSearchResponse(blogDocuments, pageInfo);
     }
 
     private KeywordSearchRequest createKeywordSearchRequest() {

@@ -11,9 +11,9 @@ ifndef::snippets[]
 :snippets: ./build/generated-snippets
 endif::[]
 
-=== 블로그 검색
+== 블로그 검색
 
-==== [Request URL]
+=== [Request URL]
 
 [source,http,options="nowrap"]
 ....
@@ -23,14 +23,31 @@ Authorization: KakaoAK ${REST_API_KEY}
 Host: localhost
 ....
 
-==== [Request Sample]
+=== [Request Sample]
 
 include::{snippets}/blog-search/http-request.adoc[]
 
-==== [Request Field]
+=== [Request Field]
 
 include::{snippets}/blog-search/query-parameters.adoc[]
 
-==== [Response Fields]
+=== [Response Fields]
 
 include::{snippets}/blog-search/response-fields.adoc[]
+
+'''
+
+== 블로그 인기 검색어
+
+=== [Request URL]
+
+[source,http,options="nowrap"]
+....
+GET /blog/keyword/hot HTTP/1.1
+Accept: application/json
+Host: localhost
+....
+
+=== [Response Fields]
+
+include::{snippets}/blog-hot-keyword/response-fields.adoc[]
