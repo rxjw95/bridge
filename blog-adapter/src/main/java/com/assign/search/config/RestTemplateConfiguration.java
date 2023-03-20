@@ -1,4 +1,4 @@
-package com.assign.search.infrastructure.external.config;
+package com.assign.search.config;
 
 import static java.util.concurrent.TimeUnit.MINUTES;
 
@@ -6,7 +6,8 @@ import org.apache.hc.client5.http.config.ConnectionConfig;
 import org.apache.hc.client5.http.config.RequestConfig;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
-import org.apache.hc.client5.http.impl.io.BasicHttpClientConnectionManager;
+import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager;
+import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManagerBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
@@ -21,7 +22,7 @@ public class RestTemplateConfiguration {
     public RestTemplate restTemplate() {
         HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
 
-        BasicHttpClientConnectionManager connectionManager = getBasicHttpClientConnectionManager();
+        PoolingHttpClientConnectionManager connectionManager = getPoolingHttpClientConnectionManager();
         RequestConfig requestConfig = getRequestConfig();
 
         CloseableHttpClient httpClient = HttpClientBuilder.create()
@@ -34,13 +35,14 @@ public class RestTemplateConfiguration {
         return new RestTemplate(factory);
     }
 
-    private BasicHttpClientConnectionManager getBasicHttpClientConnectionManager() {
-        BasicHttpClientConnectionManager connectionManager = new BasicHttpClientConnectionManager();
+    private PoolingHttpClientConnectionManager getPoolingHttpClientConnectionManager() {
+        PoolingHttpClientConnectionManager connectionManager = PoolingHttpClientConnectionManagerBuilder.create()
+            .build();
         ConnectionConfig connConfig = ConnectionConfig.custom()
             .setConnectTimeout(ONE, MINUTES)
             .setSocketTimeout(ONE, MINUTES)
             .build();
-        connectionManager.setConnectionConfig(connConfig);
+        connectionManager.setDefaultConnectionConfig(connConfig);
         return connectionManager;
     }
 
