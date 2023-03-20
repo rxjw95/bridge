@@ -17,11 +17,13 @@ public class HotKeywordService implements FindHotKeywordUseCase {
         this.loadHotKeywordPort = loadHotKeywordPort;
     }
 
-
     @Override
     public List<HotKeywordResponse> find() {
         List<Keyword> keywords = loadHotKeywordPort.loadKeywordTopTen();
+        return convertResponse(keywords);
+    }
 
+    private List<HotKeywordResponse> convertResponse(List<Keyword> keywords) {
         return keywords.stream()
             .map(convertFunc())
             .toList();
