@@ -7,6 +7,7 @@ import com.assign.search.application.in.usecase.SearchKeywordUseCase;
 import com.assign.search.dto.request.KeywordSearchRequest;
 import com.assign.search.dto.response.HotKeywordResponse;
 import com.assign.search.dto.response.KeywordSearchResponse;
+import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -27,7 +28,7 @@ public class BlogSearchController {
     }
 
     @GetMapping(value = "/search", produces = APPLICATION_JSON_VALUE)
-    public KeywordSearchResponse search(@ModelAttribute KeywordSearchRequest request) {
+    public KeywordSearchResponse search(@Valid @ModelAttribute KeywordSearchRequest request) {
         return searchKeywordUseCase.search(request);
     }
 
