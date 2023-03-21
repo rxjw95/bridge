@@ -5,6 +5,7 @@ import com.assign.search.application.out.persistence.SaveKeywordPort;
 import com.assign.search.domain.Keyword;
 import java.util.Optional;
 import org.springframework.context.event.EventListener;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +22,7 @@ public class KeywordSearchEventListener {
         this.saveKeywordPort = saveKeywordPort;
     }
 
+    @Async
     @EventListener
     @Transactional
     public void handleEvent(String keyword) {
