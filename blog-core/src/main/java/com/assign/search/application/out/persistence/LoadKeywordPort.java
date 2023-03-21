@@ -5,5 +5,5 @@ import java.util.Optional;
 
 public interface LoadKeywordPort {
 
-    Optional<Keyword> loadOne(String keyword);
+    Optional<Keyword> loadOneWithLock(String keyword);
 }
