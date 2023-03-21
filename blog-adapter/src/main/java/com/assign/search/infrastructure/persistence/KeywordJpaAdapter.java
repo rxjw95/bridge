@@ -18,8 +18,8 @@ public class KeywordJpaAdapter implements LoadKeywordPort, LoadHotKeywordPort, S
     }
 
     @Override
-    public Optional<Keyword> loadOne(String keyword) {
-        return keywordRepository.findById(keyword);
+    public Optional<Keyword> loadOneWithLock(String keyword) {
+        return keywordRepository.findByIdWithLock(keyword);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class KeywordJpaAdapter implements LoadKeywordPort, LoadHotKeywordPort, S
     }
 
     @Override
-    public void save(Keyword keyword) {
-        keywordRepository.save(keyword);
+    public void saveAndFlush(Keyword keyword) {
+        keywordRepository.saveAndFlush(keyword);
     }
 }

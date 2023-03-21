@@ -24,13 +24,25 @@ public class KeywordSearchEventListener {
     @EventListener
     @Transactional
     public void handleEvent(String keyword) {
-        Optional<Keyword> findKeyword = loadKeywordPort.loadOne(keyword);
+        Optional<Keyword> findKeyword = loadKeywordPort.loadOneWithLock(keyword);
 
-        if (findKeyword.isPresent()) {
-            findKeyword.get().addFrequency(1);
+        if (findKeyword.isEmpty()) {
+            saveSyncWithDoubleCheck(keyword);
             return;
         }
 
-        saveKeywordPort.save(new Keyword(keyword, 1));
+        findKeyword.get().addFrequency(1);
+    }
+
+    private void saveSyncWithDoubleCheck(String keyword) {
+        synchronized (this) {
+            Optional<Keyword> findKeyword = loadKeywordPort.loadOneWithLock(keyword);
+            if (findKeyword.isEmpty()) {
+                saveKeywordPort.saveAndFlush(new Keyword(keyword, 1));
+                return;
+            }
+            findKeyword.get().addFrequency(1);
+        }
+
     }
 }

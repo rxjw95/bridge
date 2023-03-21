@@ -29,18 +29,18 @@ class KeywordSearchEventListenerTest {
     @Test
     void handleEvent_NotFoundKeyword_Save() {
         final String keyword = "카카오";
-        given(loadKeywordPort.loadOne(keyword)).willReturn(Optional.empty());
+        given(loadKeywordPort.loadOneWithLock(keyword)).willReturn(Optional.empty());
 
         listener.handleEvent(keyword);
 
-        then(saveKeywordPort).should().save(new Keyword(keyword, 1));
+        then(saveKeywordPort).should().saveAndFlush(new Keyword(keyword, 1));
     }
 
     @Test
     void handleEvent_ExistKeyword_Update() {
         final String keyword = "카카오";
         Keyword keywordEntity = new Keyword(keyword, 1);
-        given(loadKeywordPort.loadOne(keyword)).willReturn(Optional.of(keywordEntity));
+        given(loadKeywordPort.loadOneWithLock(keyword)).willReturn(Optional.of(keywordEntity));
 
         listener.handleEvent(keyword);
 

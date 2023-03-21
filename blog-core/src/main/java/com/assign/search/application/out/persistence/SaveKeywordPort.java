@@ -4,6 +4,6 @@ import com.assign.search.domain.Keyword;
 
 public interface SaveKeywordPort {
 
-    void save(Keyword keyword);
+    void saveAndFlush(Keyword keyword);
 
 }
