@@ -13,7 +13,6 @@ import com.assign.search.infrastructure.external.dto.NaverSearchResponse;
 import java.net.URI;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.util.Pair;
 import org.springframework.http.HttpEntity;
@@ -22,7 +21,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-@Slf4j
 @RequiredArgsConstructor
 @Component
 public class NaverSearchClient implements SearchClient {
