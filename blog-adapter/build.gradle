@@ -44,6 +44,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.apache.httpcomponents.client5:httpclient5:5.2.1'
 
+    implementation 'org.springframework.retry:spring-retry'
+
     runtimeOnly 'com.h2database:h2'
 
     asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
