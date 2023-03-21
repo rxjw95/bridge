@@ -1,4 +1,4 @@
-package com.assign.search.config;
+package com.assign.search.infrastructure.config;
 
 import java.util.concurrent.Executor;
 import org.springframework.context.annotation.Configuration;

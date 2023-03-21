@@ -1,4 +1,4 @@
-package com.assign.search.config;
+package com.assign.search.infrastructure.config;
 
 import static java.util.concurrent.TimeUnit.MINUTES;
 

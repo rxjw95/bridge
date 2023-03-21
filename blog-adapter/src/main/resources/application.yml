@@ -2,6 +2,11 @@ kakao:
   api: https://dapi.kakao.com/v2/search/blog
   rest-key: KakaoAK 813f396455d5205f1921a44489b1a294
 
+naver:
+  api: https://openapi.naver.com/v1/search/blog.json
+  client-id: _SN_Kac2DXPo_qkU1D5z
+  client-secret-id: 1oCeB6QLjX
+
 spring:
   jpa:
     database: h2
