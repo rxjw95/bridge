@@ -1,4 +1,4 @@
-package com.assign.search.infrastructure.external.dto.response;
+package com.assign.search.infrastructure.external.dto;
 
 import java.util.List;
 import java.util.Map;

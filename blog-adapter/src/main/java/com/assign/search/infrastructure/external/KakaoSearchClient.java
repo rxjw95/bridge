@@ -1,22 +1,28 @@
 package com.assign.search.infrastructure.external;
 
-import static com.assign.search.infrastructure.external.common.ParameterKey.KAKAO;
+import static com.assign.search.exception.ErrorCode.INTERNAL_SERVER_ERROR;
+import static com.assign.search.infrastructure.external.common.SearchClientHeader.KAKAO_HEADER;
+import static com.assign.search.infrastructure.external.common.SearchClientURI.KAKAO_URI;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.HttpMethod.GET;
 
 import com.assign.search.application.out.api.SearchClient;
 import com.assign.search.dto.request.KeywordSearchRequest;
 import com.assign.search.dto.response.KeywordSearchResponse;
-import com.assign.search.infrastructure.external.dto.response.KakaoSearchResponse;
+import com.assign.search.exception.ResponseBodyEmptyException;
+import com.assign.search.infrastructure.external.dto.KakaoSearchResponse;
 import java.net.URI;
+import java.util.List;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.util.Pair;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponents;
-import org.springframework.web.util.UriComponentsBuilder;
 
+@RequiredArgsConstructor
 @Component
 public class KakaoSearchClient implements SearchClient {
 
@@ -25,45 +31,35 @@ public class KakaoSearchClient implements SearchClient {
 
     @Value("${kakao.api}")
     private String kakaoApiUrl;
-    @Value("${kakao.rest-key}")
-    private String kakakRestKey;
 
-    public KakaoSearchClient(RestTemplate restTemplate, SearchResponseConverter converter) {
-        this.restTemplate = restTemplate;
-        this.converter = converter;
-    }
+    @Value("${kakao.rest-key}")
+    private String kakaoRestKey;
 
     @Override
     public KeywordSearchResponse fetch(KeywordSearchRequest request) {
-        HttpEntity<Object> httpEntity = getHttpEntityContainsHeaders();
-        URI uri = getUri(request);
+        HttpEntity<HttpHeaders> httpEntity = KAKAO_HEADER.toHttpEntity(
+            List.of(Pair.of(AUTHORIZATION, kakaoRestKey)));
 
-        // TODO. exception 처리
-        KakaoSearchResponse response = restTemplate.exchange(
-                uri,
-                GET,
-                httpEntity,
-                KakaoSearchResponse.class)
-            .getBody();
+        URI uri = KAKAO_URI.toURI(
+            kakaoApiUrl,
+            request.getQuery(),
+            request.getSize().toString(), request.getPage().toString(),
+            request.getSort());
 
-        return converter.convert(response);
+        ResponseEntity<KakaoSearchResponse> response = restTemplate.exchange(
+            uri,
+            GET,
+            httpEntity,
+            KakaoSearchResponse.class);
+
+        return converter.convert(extractBody(response));
     }
 
-    private URI getUri(KeywordSearchRequest request) {
-        UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(kakaoApiUrl)
-            .queryParam(KAKAO.getQuery(), request.getQuery())
-            .queryParam(KAKAO.getSize(), request.getSize().toString())
-            .queryParam(KAKAO.getPage(), request.getPage().toString())
-            .queryParam(KAKAO.getSort(), request.getSort()).encode().build();
-
-        return uriComponents.toUri();
+    private KakaoSearchResponse extractBody(ResponseEntity<KakaoSearchResponse> response) {
+        if (response.getBody() == null) {
+            throw new ResponseBodyEmptyException(INTERNAL_SERVER_ERROR);
+        }
+        return response.getBody();
     }
-
-    private HttpEntity<Object> getHttpEntityContainsHeaders() {
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.set(AUTHORIZATION, kakakRestKey);
-        return new HttpEntity<>(httpHeaders);
-    }
-
 
 }
