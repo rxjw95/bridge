@@ -39,7 +39,7 @@ public class BlogSearchRestDocument {
                 fieldWithPath("documents[].url").description("블로그 링크"),
                 fieldWithPath("pageInfo.totalCount").description("총 조회 게시물 수").type("Integer"),
                 fieldWithPath("pageInfo.pageableCount").description("노출 가능한 게시물 수").type("Integer"),
-                fieldWithPath("pageInfo.lastPage").description("마지막 페이지 여부").type("Boolean")
+                fieldWithPath("pageInfo.isLastPage").description("마지막 페이지 여부").type("Boolean")
             )
         );
     }
