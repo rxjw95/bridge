@@ -26,7 +26,7 @@ public class Keyword implements Persistable<String> {
 
     @Override
     public String getId() {
-        return this.keyword;
+        return keyword;
     }
 
     @Override
