@@ -11,9 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
+@ActiveProfiles("test")
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @Transactional
@@ -21,6 +23,9 @@ public class SpringIntegrationTest {
 
     @Autowired
     private MockMvc mvc;
+
+    @Autowired
+    private DBsetup setup;
 
     @Test
     void 올바르지_않은_파라미터로_검색하면_BadRequest() throws Exception {
@@ -58,6 +63,7 @@ public class SpringIntegrationTest {
 
     @Test
     void 인기_키워드를_조회하면_최대_10개의_키워드와_빈도수를_반환한다() throws Exception {
+        setup.setUpKeyword();
         mvc.perform(get("/blog/keyword/hot")
                 .accept(APPLICATION_JSON))
             .andExpectAll(
