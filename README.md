@@ -1,5 +1,5 @@
 # bridge
-assignmet blog api
+assignment blog api
 
 ## API 명세
 
