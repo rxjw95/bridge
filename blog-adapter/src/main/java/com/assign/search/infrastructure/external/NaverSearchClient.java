@@ -1,14 +1,14 @@
 package com.assign.search.infrastructure.external;
 
-import static com.assign.search.exception.ErrorCode.INTERNAL_SERVER_ERROR;
+import static com.assign.search.application.exception.ErrorCode.INTERNAL_SERVER_ERROR;
 import static com.assign.search.infrastructure.external.common.SearchClientHeader.NAVER_HEADER;
 import static com.assign.search.infrastructure.external.common.SearchClientURI.NAVER_URI;
 import static org.springframework.http.HttpMethod.GET;
 
+import com.assign.search.application.exception.ResponseBodyEmptyException;
 import com.assign.search.application.out.api.SearchClient;
 import com.assign.search.dto.request.KeywordSearchRequest;
 import com.assign.search.dto.response.KeywordSearchResponse;
-import com.assign.search.exception.ResponseBodyEmptyException;
 import com.assign.search.infrastructure.external.dto.NaverSearchResponse;
 import java.net.URI;
 import java.util.List;
