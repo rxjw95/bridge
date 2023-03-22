@@ -1,5 +1,6 @@
-package com.assign.search.exception;
+package com.assign.search.persentation.advice;
 
+import com.assign.search.application.exception.ErrorCode;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AccessLevel;
@@ -12,7 +13,6 @@ import org.springframework.validation.BindingResult;
 public class ErrorResponse {
 
     private String message;
-
     private List<FieldViolations> fieldViolations;
 
     public static ErrorResponse of(ErrorCode code, BindingResult bindingResult) {
@@ -39,10 +39,6 @@ public class ErrorResponse {
         private final String field;
         private final String value;
         private final String reason;
-
-        public static List<FieldViolations> of(String field, String value, String reason) {
-            return List.of(new FieldViolations(field, value, reason));
-        }
 
         public static List<FieldViolations> from(BindingResult bindingResult) {
             return bindingResult.getFieldErrors()

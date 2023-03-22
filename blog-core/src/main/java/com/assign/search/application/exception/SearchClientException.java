@@ -1,4 +1,4 @@
-package com.assign.search.exception;
+package com.assign.search.application.exception;
 
 import lombok.Getter;
 

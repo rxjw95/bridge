@@ -1,11 +1,10 @@
-package com.assign.search.advice;
+package com.assign.search.persentation.advice;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
-import com.assign.search.exception.ErrorCode;
-import com.assign.search.exception.ErrorResponse;
-import com.assign.search.exception.SearchClientException;
+import com.assign.search.application.exception.ErrorCode;
+import com.assign.search.application.exception.SearchClientException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
