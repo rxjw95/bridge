@@ -3,7 +3,6 @@ package com.assign.search.persentation;
 import static com.assign.search.docs.BlogSearchRestDocument.searchKeywordRestDocument;
 import static com.assign.search.docs.HotKeywordRestDocument.hotKeywordRestDocument;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -58,8 +57,6 @@ class BlogSearchControllerTest {
 
     @Test
     void search() throws Exception {
-        final String restKeyDummy = "KakaoAK 1029384756abc";
-
         KeywordSearchRequest request = createKeywordSearchRequest();
         KeywordSearchResponse response = createKeywordSearchResponse();
 
@@ -67,7 +64,6 @@ class BlogSearchControllerTest {
 
         mockMvc.perform(get("/blog/search")
                 .accept(APPLICATION_JSON)
-                .header(AUTHORIZATION, restKeyDummy)
                 .param("query", "keyword")
             )
             .andExpect(status().isOk())

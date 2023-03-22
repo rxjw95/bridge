@@ -19,7 +19,6 @@ endif::[]
 ....
 GET /blog/search HTTP/1.1
 Accept: application/json
-Authorization: KakaoAK ${REST_API_KEY}
 Host: localhost
 ....
 

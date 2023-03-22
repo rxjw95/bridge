@@ -2,9 +2,6 @@ package com.assign.search.docs;
 
 import static com.assign.search.docs.RestApiDocumentUtils.getDocumentRequest;
 import static com.assign.search.docs.RestApiDocumentUtils.getDocumentResponse;
-import static org.springframework.http.HttpHeaders.AUTHORIZATION;
-import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
-import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
@@ -19,7 +16,6 @@ public class BlogSearchRestDocument {
         return MockMvcRestDocumentation.document("blog-search",
             getDocumentRequest(),
             getDocumentResponse(),
-            requestHeaders(headerWithName(AUTHORIZATION).description("REST API KEY")),
             queryParameters(
                 parameterWithName("query").description(
                     "검색을 원하는 질의어\n 특정 블로그 글만 검색하고 싶은 경우, 블로그 url과 검색어를 공백(' ') 구분자로 넣을 수 있음"),
