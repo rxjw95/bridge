@@ -3,4 +3,4 @@ assignment blog api
 
 ## API 명세
 
-**https://rxjw95.github.io/bridge/blog-search.html**
+**https://rxjw95.github.io/bridge/blog-search**
